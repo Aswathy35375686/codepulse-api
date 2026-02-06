@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BlogpostService } from '../services/blogpost-service';
 import { MarkdownComponent } from 'ngx-markdown';
 import { Categoryservice } from '../../category/services/categoryservice';
+import { ImageSelectorService } from '../../../shared/services/image-selector-service';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -15,9 +16,18 @@ import { Categoryservice } from '../../category/services/categoryservice';
 })
 export class AddBlogpost {
 
- private blogpostService = inject(BlogpostService);
+  blogpostService = inject(BlogpostService);
  categoryService = inject(Categoryservice);
-  private router = inject(Router);
+   router = inject(Router);
+   imageSelectorService = inject(ImageSelectorService);
+   selectedImageEffectRef = effect(()=>{
+      const selectedImageUrl = this.imageSelectorService.selectedImage();
+      if(selectedImageUrl){
+        this.addBlogPostForm.patchValue({
+          FeaturedImageUrl: selectedImageUrl
+        });
+      }
+    });
  
  private categoriesResourceRef = this.categoryService.getAllCategories();
  categoriesResponse = this.categoriesResourceRef.value;

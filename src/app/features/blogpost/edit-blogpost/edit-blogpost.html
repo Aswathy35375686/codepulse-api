@@ -5,13 +5,13 @@
     <form [formGroup]="editBlogPostForm" class="mt-3" (ngSubmit)="onSubmit()">
         <div class="mb-3">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" formControlName="Title">
+            <input type="text" class="form-control" formControlName="title">
 
 
         </div>
         <div class="mb-3">
             <label class="form-label">Short Description</label>
-            <input type="text" class="form-control" formControlName="ShortDescription">
+            <input type="text" class="form-control" formControlName="shortDescription">
 
 
         </div>
@@ -21,12 +21,12 @@
             <div class="d-flex flex-row">
                 <div class="col-6 p-2">
                       <label class="form-label">Content</label>
-            <textarea class="form-control" formControlName="Content" rows="5"></textarea>
+            <textarea class="form-control" formControlName="content" rows="5"></textarea>
         </div>
 
                 </div>
                 <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
-            <markdown [data]="editBlogPostForm.get('Content')?.value"></markdown>
+            <markdown [data]="editBlogPostForm.get('content')?.value"></markdown>
             </div>
         </div>
 
@@ -34,14 +34,17 @@
 
           
         <div class="mb-3">
-            <label class="form-label">Featured Image URL</label>
+            <label class="form-label">Featured Image URL
+                <button class="btn btn-light" type="button"(click)="openImageSelector()">
+                  Select Images  
+                </button></label>
 
-            @if (editBlogPostForm.controls.FeaturedImageUrl.getRawValue()) {
+            @if (editBlogPostForm.controls.featuredImageUrl.getRawValue()) {
                 <div>
                     <img
                     style="width: 100px;"
                     class="my-2"
-                    [src]="editBlogPostForm.controls.FeaturedImageUrl.getRawValue()"
+                    [src]="editBlogPostForm.controls.featuredImageUrl.getRawValue()"
                     />
 
             
@@ -49,20 +52,20 @@
     }
         <div class="mb-3">
             <label class="form-label">URL Handle</label>
-            <input type="text" class="form-control" formControlName="UrlHandle">
+            <input type="text" class="form-control" formControlName="urlHandle">
         </div>
         <div class="mb-3">
             <label class="form-label">Published Date</label>
-            <input type="date" class="form-control" formControlName="PublishedDate">
+            <input type="date" class="form-control" formControlName="publishedDate">
         </div>
         <div class="mb-3">
             <label class="form-label">Author</label>
-            <input type="text" class="form-control" multiple formControlName="Author">
+            <input type="text" class="form-control" multiple formControlName="author">
         </div>
          <div class="mb-3">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="isVisible" formControlName="IsVisible"/>
-            <label class="form-check-label" for="isVisible">Is Visible</label>
+            <input class="form-check-input" type="checkbox"  id="isvisible" formControlName="isvisible"/>
+            <label class="form-check-label" for="isvisible">Is Visible</label>
 
         </div>
         <div class="mb-3">
@@ -74,9 +77,11 @@
                 }
             
             </select>
-        <div class="mt-3">
+        <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-danger ms-2" (click)="onDelete()">Delete</button>
 
             </div>
         </div>
 
+<app-image-selector></app-image-selector>
